@@ -39,5 +39,18 @@ admin:
   email: admin@admin.com
   password: admin
 
+spring.mail:
+  host: sandbox.smtp.mailtrap.io
+  port: 2525
+  username: 239d707583c199
+  password: 444c3cd9e0d210
+  properties:
+    mail:
+      smtp:
+        auth: true
+        starttls:
+          enable: true
 
-
+notification:
+  email:
+    from: noreply@albumreview.com
