@@ -41,6 +41,12 @@ public class UserProfileController implements SecuredRestController {
         return ResponseEntity.ok(userProfileService.getByUserId(userId));
     }
 
+    @GetMapping("/search")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
+    public ResponseEntity<List<UserProfileResponseDto>> searchUsers(@RequestParam String query) {
+        return ResponseEntity.ok(userProfileService.searchUsers(query));
+    }
+
     @PostMapping("/follow/{userId}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<Void> follow(@PathVariable UUID userId) {

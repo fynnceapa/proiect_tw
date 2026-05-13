@@ -12,6 +12,9 @@ import java.util.UUID;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, UUID> {
 
+    @Query("SELECT r FROM Review r ORDER BY r.createdAt DESC")
+    List<Review> findAllOrdered();
+
     @Query("SELECT r FROM Review r WHERE r.album.id = :albumId ORDER BY r.createdAt DESC")
     List<Review> findByAlbumId(@Param("albumId") UUID albumId);
 

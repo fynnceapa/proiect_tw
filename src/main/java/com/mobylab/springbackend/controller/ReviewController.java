@@ -28,6 +28,12 @@ public class ReviewController implements SecuredRestController {
         return ResponseEntity.ok(reviewService.getById(id));
     }
 
+    @GetMapping
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
+    public ResponseEntity<List<ReviewResponseDto>> getAll() {
+        return ResponseEntity.ok(reviewService.getAll());
+    }
+
     @GetMapping("/album/{albumId}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<List<ReviewResponseDto>> getByAlbumId(@PathVariable UUID albumId) {

@@ -12,7 +12,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -55,6 +58,20 @@ public class UserProfileService {
 
         userProfileRepository.save(profile);
         return toResponseDto(currentUser, currentUser);
+    }
+
+    public List<UserProfileResponseDto> searchUsers(String query) {
+        if (query == null || query.trim().isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        User currentUser = getCurrentUser();
+        return userRepository
+                .findByUsernameContainingIgnoreCaseOrEmailContainingIgnoreCase(query.trim(), query.trim())
+                .stream()
+                .filter(user -> !user.getId().equals(currentUser.getId()))
+                .map(user -> toResponseDto(user, currentUser))
+                .collect(Collectors.toList());
     }
 
     private UserProfileResponseDto toResponseDto(User user, User currentUser) {

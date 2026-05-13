@@ -43,6 +43,12 @@ public class ReviewService {
         return toResponseDto(review);
     }
 
+    public List<ReviewResponseDto> getAll() {
+        return reviewRepository.findAllOrdered().stream()
+                .map(this::toResponseDto)
+                .collect(Collectors.toList());
+    }
+
     public List<ReviewResponseDto> getByAlbumId(UUID albumId) {
         return reviewRepository.findByAlbumId(albumId).stream()
                 .map(this::toResponseDto)
