@@ -1,21 +1,21 @@
 :root {
   color-scheme: light;
-  font-family: "Space Grotesk", "IBM Plex Mono", system-ui, sans-serif;
-  --bg: #f4efe7;
-  --surface: #fff9f0;
-  --surface-strong: #fff3de;
-  --ink: #14110f;
-  --muted: #6f655c;
-  --accent: #ff5a22;
-  --accent-2: #2b9eb3;
-  --accent-3: #ffc857;
-  --danger: #e23f37;
-  --success: #2f8f4e;
-  --outline: #14110f;
-  --grid: rgba(20, 17, 15, 0.12);
-  --shadow-hard: 4px 4px 0 #14110f;
-  --shadow-press: 2px 2px 0 #14110f;
-  --shadow-flat: 0 0 0 #14110f;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --bg: #f5f5f2;
+  --surface: #ffffff;
+  --surface-strong: #f0f0ed;
+  --ink: #111111;
+  --muted: #6e6e6e;
+  --accent: #111111;
+  --accent-2: #111111;
+  --accent-3: #e6e6e2;
+  --danger: #b81f1a;
+  --success: #1f7a45;
+  --outline: #111111;
+  --grid: transparent;
+  --shadow-hard: 0 0 0 transparent;
+  --shadow-press: 0 0 0 transparent;
+  --shadow-flat: 0 0 0 transparent;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -34,10 +34,10 @@
 body {
   margin: 0;
   background-color: var(--bg);
-  background-image: linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 40px 40px;
   color: var(--ink);
+  letter-spacing: 0.2px;
+  line-height: 1.6;
+  transition: background-color 0.4s ease;
 }
 
 .app {
@@ -64,7 +64,7 @@ button,
 input,
 select,
 textarea {
-  font-family: "IBM Plex Mono", "Space Grotesk", system-ui, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 nav {
@@ -72,8 +72,8 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: var(--space-5) var(--space-7);
-  border-bottom: 4px solid var(--ink);
-  background: var(--accent-2);
+  border-bottom: none;
+  background: var(--bg);
   position: sticky;
   top: 0;
   z-index: 5;
@@ -88,30 +88,30 @@ nav {
 .nav-brand strong {
   font-size: 1.1rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
 }
 
 .nav-links {
   display: flex;
   gap: var(--space-3);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   flex-wrap: wrap;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .nav-links a {
   padding: var(--space-2) var(--space-3);
-  border-radius: 6px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  border: 2px solid var(--ink);
-  background: var(--surface);
-  box-shadow: var(--shadow-hard);
+  border-radius: 999px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  border: 1px solid transparent;
+  background: transparent;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-  transform: translate(2px, 2px);
-  box-shadow: var(--shadow-flat);
-  background: var(--accent-3);
+  color: var(--ink);
+  border-color: var(--ink);
 }
 
 .nav-actions {
@@ -124,10 +124,11 @@ nav {
 .badge {
   font-size: 0.8rem;
   padding: var(--space-1) var(--space-2);
-  border-radius: 6px;
-  background: var(--accent-3);
-  border: 2px solid var(--ink);
-  box-shadow: var(--shadow-hard);
+  border-radius: 999px;
+  background: var(--surface-strong);
+  border: 1px solid var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .page {
@@ -145,8 +146,10 @@ nav {
 }
 
 .page-header h1 {
-  font-size: 2.6rem;
+  font-size: 2.8rem;
   margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 4px;
 }
 
 .page-header p {
@@ -156,10 +159,99 @@ nav {
 
 .panel {
   background: var(--surface);
-  border: 2px solid var(--ink);
-  border-radius: 8px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
   padding: var(--space-5);
-  box-shadow: var(--shadow-hard);
+}
+
+.album-page .panel {
+  background: transparent;
+  border-color: currentColor;
+}
+
+.album-page .card {
+  background: transparent;
+  border-color: currentColor;
+}
+
+.album-page .tag {
+  background: transparent;
+  border-color: currentColor;
+}
+
+.album-page .page-header p {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+}
+
+.album-page .helper {
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+}
+
+.album-page .card small {
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+}
+
+.album-page .review-meta {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+}
+
+.catalog-panel {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.catalog-toolbar {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-5);
+  gap: var(--space-4);
+}
+
+.catalog-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.catalog-sort {
+  display: flex;
+  align-items: center;
+}
+
+.catalog-controls input,
+.catalog-controls select {
+  min-width: 220px;
+}
+
+.catalog-actions {
+  justify-content: flex-end;
+}
+
+.catalog-grid {
+  max-width: 1100px;
+  margin: var(--space-4) auto 0;
+}
+
+.catalog-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-7);
+}
+
+.artists-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-6);
 }
 
 .panel.loading {
@@ -174,91 +266,110 @@ nav {
 
 .album-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 240px));
-  gap: var(--space-4);
-  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-6);
+  align-items: start;
 }
 
 .album-card {
-  background: var(--surface);
-  border: 2px solid var(--ink);
-  border-radius: 8px;
-  overflow: hidden;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
   position: relative;
-  aspect-ratio: 1 / 1;
-  box-shadow: var(--shadow-hard);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.album-card:hover {
+  transform: translateY(-4px);
+}
+
+.album-card:hover .album-title {
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .album-cover-link {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(140deg, rgba(255, 90, 34, 0.25), rgba(43, 158, 179, 0.2));
-  background-size: cover;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--surface-strong);
+  background-size: contain;
+  background-repeat: no-repeat;
   background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--ink);
-  letter-spacing: 2px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  letter-spacing: 3px;
   text-transform: uppercase;
-  font-size: 0.7rem;
-  z-index: 0;
+  font-size: 0.65rem;
+  border: 1px solid var(--ink);
 }
 
 .album-cover-fallback {
   padding: var(--space-2) var(--space-3);
-  border: 2px dashed var(--ink);
+  border: 1px dashed var(--ink);
   border-radius: 999px;
-  background: var(--surface-strong);
+  background: transparent;
 }
 
 .album-info {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: var(--space-4);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  background: rgba(255, 249, 240, 0.92);
-  border-top: 2px solid var(--ink);
-  z-index: 1;
+  position: static;
+  padding: 0;
+  display: grid;
+  gap: var(--space-1);
+  background: transparent;
+  border: none;
 }
 
 .album-title {
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.album-info .helper {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
 }
 
 .album-actions {
   position: absolute;
-  top: var(--space-3);
-  right: var(--space-3);
+  top: var(--space-2);
+  right: var(--space-2);
   display: flex;
   gap: var(--space-2);
   z-index: 2;
 }
 
 .album-actions .button {
-  padding: var(--space-2) var(--space-3);
+  padding: 6px 10px;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
 }
 
 .album-cover {
   height: 320px;
-  background: linear-gradient(140deg, rgba(255, 90, 34, 0.25), rgba(43, 158, 179, 0.2));
-  background-size: cover;
+  background: var(--surface-strong);
+  background-size: contain;
+  background-repeat: no-repeat;
   background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--ink);
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  font-size: 0.7rem;
-  border-radius: 8px;
-  border: 2px solid var(--ink);
-  box-shadow: var(--shadow-hard);
+  font-size: 0.65rem;
+  border-radius: 0;
+  border: 1px solid var(--ink);
 }
 
 .album-cover.large {
@@ -322,13 +433,12 @@ nav {
 
 .user-card {
   background: var(--surface);
-  border: 2px solid var(--ink);
-  border-radius: 8px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
   padding: var(--space-4);
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  box-shadow: var(--shadow-hard);
 }
 
 .user-row {
@@ -340,8 +450,8 @@ nav {
 .user-avatar {
   width: 64px;
   height: 64px;
-  border-radius: 8px;
-  border: 2px solid var(--ink);
+  border-radius: 0;
+  border: 1px solid var(--ink);
   background: var(--surface-strong);
   background-size: cover;
   background-position: center;
@@ -355,13 +465,12 @@ nav {
 
 .card {
   background: var(--surface);
-  border: 2px solid var(--ink);
-  border-radius: 8px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
   padding: var(--space-4);
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  box-shadow: var(--shadow-hard);
 }
 
 .card strong {
@@ -383,11 +492,11 @@ nav {
 
 .toolbar input,
 .toolbar select {
-  background: var(--surface-strong);
-  border: 2px solid var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--ink);
   color: var(--ink);
   padding: var(--space-3) var(--space-4);
-  border-radius: 6px;
+  border-radius: 0;
   min-width: 200px;
 }
 
@@ -401,7 +510,7 @@ nav {
 .table td {
   text-align: left;
   padding: var(--space-3) var(--space-2);
-  border-bottom: 2px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
 }
 
 .table th {
@@ -413,7 +522,7 @@ nav {
 }
 
 .table tr:hover {
-  background: rgba(20, 17, 15, 0.04);
+  background: rgba(0, 0, 0, 0.03);
 }
 
 .tag {
@@ -421,50 +530,51 @@ nav {
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-1) var(--space-2);
-  border-radius: 6px;
-  background: var(--accent-3);
+  border-radius: 999px;
+  background: var(--surface-strong);
   color: var(--ink);
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  border: 2px solid var(--ink);
-  box-shadow: var(--shadow-hard);
+  border: 1px solid var(--ink);
 }
 
 .button {
   padding: var(--space-3) var(--space-4);
-  border-radius: 6px;
-  border: 2px solid var(--ink);
+  border-radius: 999px;
+  border: 1px solid var(--ink);
   background: var(--accent);
-  color: var(--ink);
-  font-weight: 700;
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: var(--shadow-hard);
+  transition: opacity 0.2s ease, background-color 0.2s ease;
 }
 
 .button:hover {
-  transform: translate(2px, 2px);
-  box-shadow: var(--shadow-press);
+  opacity: 0.85;
 }
 
 .button:active {
-  transform: translate(4px, 4px);
-  box-shadow: var(--shadow-flat);
+  opacity: 0.7;
 }
 
 .button.secondary {
-  background: var(--accent-3);
+  background: #ffffff;
+  color: var(--ink);
 }
 
 .button.ghost {
   background: transparent;
-  border-style: dashed;
-  box-shadow: none;
+  border-style: solid;
+  color: var(--ink);
 }
 
 .button.danger {
-  background: var(--danger);
+  background: #ffffff;
+  color: var(--danger);
+  border-color: var(--danger);
 }
 
 .form-grid {
@@ -480,7 +590,7 @@ nav {
 .form-row label {
   font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   color: var(--muted);
 }
 
@@ -488,9 +598,9 @@ nav {
 .form-row select,
 .form-row textarea {
   padding: var(--space-3) var(--space-4);
-  border-radius: 6px;
-  border: 2px solid var(--ink);
-  background: var(--surface-strong);
+  border-radius: 0;
+  border: 1px solid var(--ink);
+  background: var(--surface);
   color: var(--ink);
 }
 
@@ -514,7 +624,7 @@ nav {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(20, 17, 15, 0.5);
+  background: rgba(17, 17, 17, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -524,11 +634,10 @@ nav {
 
 .modal {
   background: var(--surface);
-  border-radius: 8px;
-  border: 2px solid var(--ink);
+  border-radius: 0;
+  border: 1px solid var(--ink);
   padding: var(--space-5);
   width: min(640px, 100%);
-  box-shadow: var(--shadow-hard);
 }
 
 .modal-header {
@@ -547,44 +656,42 @@ nav {
   gap: var(--space-2);
   align-items: center;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .pagination button {
-  border-radius: 6px;
+  border-radius: 999px;
   padding: var(--space-2) var(--space-3);
-  border: 2px solid var(--ink);
-  background: var(--surface);
+  border: 1px solid var(--ink);
+  background: transparent;
   color: var(--ink);
   cursor: pointer;
-  box-shadow: var(--shadow-hard);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
 }
 
 .pagination button:hover {
-  transform: translate(2px, 2px);
-  box-shadow: var(--shadow-press);
+  opacity: 0.75;
 }
 
 .pagination button.active {
-  background: var(--accent-3);
+  background: var(--ink);
+  color: #ffffff;
 }
 
 .alert {
   padding: var(--space-3) var(--space-4);
-  border-radius: 6px;
-  background: #ffd6d1;
-  border: 2px solid var(--ink);
-  color: var(--ink);
-  box-shadow: var(--shadow-hard);
+  border-radius: 0;
+  background: #ffffff;
+  border: 1px solid var(--danger);
+  color: var(--danger);
 }
 
 .success {
   padding: var(--space-3) var(--space-4);
-  border-radius: 6px;
-  background: #d6f5dd;
-  border: 2px solid var(--ink);
-  color: var(--ink);
-  box-shadow: var(--shadow-hard);
+  border-radius: 0;
+  background: #ffffff;
+  border: 1px solid var(--success);
+  color: var(--success);
 }
 
 .review-form {
@@ -618,21 +725,21 @@ nav {
 
 .feedback-status {
   padding: var(--space-1) var(--space-3);
-  border-radius: 6px;
+  border-radius: 999px;
   font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  border: 2px solid var(--ink);
-  box-shadow: var(--shadow-hard);
+  letter-spacing: 2px;
+  border: 1px solid var(--ink);
 }
 
 .feedback-status.read {
-  background: #d6f5dd;
-  color: var(--ink);
+  background: #ffffff;
+  color: var(--success);
+  border-color: var(--success);
 }
 
 .feedback-status.unread {
-  background: var(--accent-3);
+  background: #ffffff;
   color: var(--ink);
 }
 
@@ -647,6 +754,8 @@ nav {
 .hero h2 {
   font-size: 2rem;
   margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 3px;
 }
 
 .hero-actions {
@@ -692,24 +801,22 @@ nav {
 .avatar {
   width: 48px;
   height: 48px;
-  border-radius: 8px;
-  border: 2px solid var(--ink);
-  background: var(--accent-2);
+  border-radius: 0;
+  border: 1px solid var(--ink);
+  background: var(--surface-strong);
   color: var(--ink);
   display: grid;
   place-items: center;
   font-weight: 700;
-  box-shadow: var(--shadow-hard);
 }
 
 .rating-tag {
   padding: var(--space-2) var(--space-3);
-  border-radius: 6px;
-  border: 2px solid var(--ink);
-  background: var(--accent-3);
+  border-radius: 999px;
+  border: 1px solid var(--ink);
+  background: var(--surface-strong);
   font-weight: 700;
   font-size: 1rem;
-  box-shadow: var(--shadow-hard);
 }
 
 .feed-actions {
@@ -723,9 +830,9 @@ nav {
   gap: var(--space-3);
   justify-items: start;
   padding: var(--space-4);
-  border: 2px dashed var(--ink);
-  border-radius: 8px;
-  background: var(--surface-strong);
+  border: 1px dashed var(--ink);
+  border-radius: 0;
+  background: transparent;
 }
 
 @keyframes rise {

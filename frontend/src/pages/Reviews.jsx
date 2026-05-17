@@ -200,7 +200,6 @@ export default function Reviews() {
               <th>Album</th>
               <th>Rating</th>
               <th>Likes</th>
-              <th>Comments</th>
               <th>Author</th>
               <th>Actions</th>
             </tr>
@@ -212,7 +211,6 @@ export default function Reviews() {
                 <td>{review.albumTitle}</td>
                 <td>{review.rating}</td>
                 <td>{review.likeCount}</td>
-                <td>{review.commentCount}</td>
                 <td>{review.username}</td>
                 <td>
                   {isAdmin ? (

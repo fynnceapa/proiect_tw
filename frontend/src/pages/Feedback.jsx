@@ -110,7 +110,7 @@ export default function Feedback() {
     <main className="page">
       <header className="page-header">
         <h1>Feedback loop</h1>
-        <p>Let us know what to build next. Your feedback is saved as a comment.</p>
+        <p>Let us know what to build next.</p>
       </header>
 
       <section className="panel">

@@ -193,7 +193,13 @@ export default function Artists() {
                 ))}
               </tbody>
             </table>
-            <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+            <div className="artists-pagination">
+              <Pagination
+                page={page}
+                totalPages={totalPages}
+                onPageChange={setPage}
+              />
+            </div>
           </>
         )}
       </section>

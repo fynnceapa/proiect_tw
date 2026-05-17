@@ -25,9 +25,8 @@ export default function NavBar() {
       <div className="nav-actions">
         {token && user ? (
           <>
-            <span className="badge">@{user.username}</span>
-            <NavLink to="/profile" className="button secondary">
-              Profile
+            <NavLink to="/profile" className="badge">
+              @{user.username}
             </NavLink>
             <button type="button" className="button" onClick={handleLogout}>
               Logout

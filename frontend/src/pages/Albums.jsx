@@ -20,6 +20,7 @@ export default function Albums() {
   const [genres, setGenres] = useState([]);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [sortBy, setSortBy] = useState("title-asc");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -28,12 +29,46 @@ export default function Albums() {
   const [confirmDelete, setConfirmDelete] = useState(null);
   const { isAdmin } = useAuth();
 
-  const pageSize = 6;
+  const pageSize = 8;
+
+  const sortedAlbums = useMemo(() => {
+    const sorted = [...albums];
+
+    const getTitle = (value) => (value?.title || "").toLowerCase();
+    const getYear = (value, fallback) => {
+      const year = Number(value?.releaseYear);
+      return Number.isFinite(year) ? year : fallback;
+    };
+    const getRating = (value, fallback) => {
+      const rating = Number(value?.averageRating);
+      return Number.isFinite(rating) ? rating : fallback;
+    };
+
+    sorted.sort((a, b) => {
+      switch (sortBy) {
+        case "title-desc":
+          return getTitle(b).localeCompare(getTitle(a));
+        case "year-desc":
+          return getYear(b, -1) - getYear(a, -1);
+        case "year-asc":
+          return getYear(a, Number.MAX_SAFE_INTEGER) - getYear(b, Number.MAX_SAFE_INTEGER);
+        case "rating-desc":
+          return getRating(b, -1) - getRating(a, -1);
+        case "rating-asc":
+          return getRating(a, Number.MAX_SAFE_INTEGER) - getRating(b, Number.MAX_SAFE_INTEGER);
+        case "title-asc":
+        default:
+          return getTitle(a).localeCompare(getTitle(b));
+      }
+    });
+
+    return sorted;
+  }, [albums, sortBy]);
 
   const pagedAlbums = useMemo(() => {
     const start = (page - 1) * pageSize;
-    return albums.slice(start, start + pageSize);
-  }, [albums, page]);
+    return sortedAlbums.slice(start, start + pageSize);
+  }, [sortedAlbums, page]);
 
   const totalPages = Math.max(1, Math.ceil(albums.length / pageSize));
 
@@ -150,22 +185,43 @@ export default function Albums() {
     loadAlbums(search);
   };
 
+  const handleSortChange = (event) => {
+    setSortBy(event.target.value);
+    setPage(1);
+  };
+
   return (
     <main className="page">
       <header className="page-header">
         <h1>Albums</h1>
-        <p>Browse, search, and manage the catalog. Admin-only for edits.</p>
+        <p>Browse the catalog.</p>
       </header>
 
-      <section className="panel">
-        <form className="toolbar" onSubmit={handleSearch}>
-          <input
-            type="search"
-            placeholder="Search by title"
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-          />
-          <div className="form-actions">
+      <section className="panel catalog-panel">
+        <form className="toolbar catalog-toolbar" onSubmit={handleSearch}>
+          <div className="catalog-controls">
+            <input
+              type="search"
+              placeholder="Search by title"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+            />
+            <div className="catalog-sort">
+              <select
+                aria-label="Sort albums"
+                value={sortBy}
+                onChange={handleSortChange}
+              >
+                <option value="title-asc">Title (A-Z)</option>
+                <option value="title-desc">Title (Z-A)</option>
+                <option value="year-desc">Year (newest)</option>
+                <option value="year-asc">Year (oldest)</option>
+                <option value="rating-desc">Rating (high)</option>
+                <option value="rating-asc">Rating (low)</option>
+              </select>
+            </div>
+          </div>
+          <div className="form-actions catalog-actions">
             <button className="button secondary" type="submit">
               Search
             </button>
@@ -185,7 +241,7 @@ export default function Albums() {
           <div className="panel loading">Loading albums...</div>
         ) : (
           <>
-            <div className="album-grid">
+            <div className="album-grid catalog-grid">
               {pagedAlbums.map((album) => (
                 <div key={album.id} className="album-card">
                   <Link
@@ -235,11 +291,13 @@ export default function Albums() {
                 </div>
               ))}
             </div>
-            <Pagination
-              page={page}
-              totalPages={totalPages}
-              onPageChange={setPage}
-            />
+            <div className="catalog-pagination">
+              <Pagination
+                page={page}
+                totalPages={totalPages}
+                onPageChange={setPage}
+              />
+            </div>
           </>
         )}
       </section>
